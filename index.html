@@ -227,7 +227,7 @@
         .social-icons a {
             display: inline-block;
             margin: 0 10px;
-            
+
         }
 
         .social-icons img {
@@ -240,7 +240,77 @@
         .social-icons img:hover {
             transform: scale(1.1);
         }
-        
+
+        .projects-section {
+            background-color: #fff;
+            text-align: center;
+            padding: 60px 5%;
+            font-family: sans-serif;
+        }
+
+        .projects-section h2 {
+            font-size: 2rem;
+            color: #222;
+            margin-bottom: 40px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .projects-section h2::after {
+            content: "";
+            display: block;
+            width: 60%;
+            height: 3px;
+            background-color: #22c55e;
+            margin: 10px auto 0;
+            border-radius: 2px;
+        }
+
+        .projects-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            justify-items: center;
+        }
+
+        .project-card {
+            background-color: #f8f8f8;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            width: 100%;
+            max-width: 350px;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .project-card video {
+            width: 100%;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .project-card h3 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .view-btn {
+            display: inline-block;
+            background-color: black;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .view-btn:hover {
+            background-color: #22c55e;
+        }
     </style>
 </head>
 
@@ -265,7 +335,7 @@
             <h1>I'm Shaik Imran</h1>
             <p>I am a IT student</p>
             <div class="web-developer-links">
-                <a href="#about" >About Me</a>
+                <a href="#about">About Me</a>
             </div>
             <div class="social-icons">
                 <a href="https://www.linkedin.com/in/shaik-imran-47069b336/" target="_blank">
@@ -344,6 +414,30 @@
                 <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS Logo">
                 <h3>CSS</h3>
                 <p>Good understanding of responsive design, layouts, and modern UI styling with CSS3.</p>
+            </div>
+
+        </div>
+    </section>
+    <section id="projects" class="projects-section">
+        <h2>Projects</h2>
+        <div class="projects-container">
+
+            <div class="project-card">
+                <video src="project1.mp4" controls></video>
+                <h3>AI Misinformation Detector</h3>
+                <a href="project1.pptx" target="_blank" class="view-btn">View Project</a>
+            </div>
+
+            <div class="project-card">
+                <video src="project2.mp4" controls></video>
+                <h3>Deepfake Detection Model</h3>
+                <a href="project2.pptx" target="_blank" class="view-btn">View Project</a>
+            </div>
+
+            <div class="project-card">
+                <video src="project3.mp4" controls></video>
+                <h3>Fake News Classifier</h3>
+                <a href="project3.pptx" target="_blank" class="view-btn">View Project</a>
             </div>
 
         </div>
