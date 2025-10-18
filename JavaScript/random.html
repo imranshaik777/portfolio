@@ -6,6 +6,7 @@
     <title>Document</title>
 </head>
 <body>
+    <p>Random password: <span id="show"></span></p>
     <button onclick="generate()" >generate password</button>
     <script>
         function generate(){
@@ -24,6 +25,7 @@
             }
             password=password.join("")
             console.log(password)
+            document.getElementById("show").innerHTML=password
         }
     </script>
 </body>
