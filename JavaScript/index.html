@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Forecast</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: "Poppins", sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background:url("https://media.istockphoto.com/id/962500712/video/4k-tl-cloudy-sky-with-sun-rays.jpg?s=640x640&k=20&c=XQrz-Y4FIzovVlayePLhPZpHoM8-iLN7gZ_uSdnoe-8=");
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding-top: 80px;
+        }
+
+        h1 {
+            color: white;
+            margin-bottom: 25px;
+            letter-spacing: 1px;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
+        }
+
+        .parent-container {
+            width: 90%;
+            max-width: 500px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .parent-container input {
+            padding: 10px 15px;
+            width: 70%;
+            border: none;
+            border-radius: 8px;
+            outline: none;
+            font-size: 16px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .parent-container button {
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #28a745, #218838);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s ease;
+            font-weight: bold;
+        }
+
+        .parent-container button:hover {
+            background: linear-gradient(135deg, #34ce57, #28a745);
+            transform: scale(1.05);
+        }
+
+        .result-container {
+            width: 90%;
+            max-width: 500px;
+            margin-top: 40px;
+        }
+
+        .city-card {
+            background: white;
+            box-shadow: 0px 5px 15px rgba(0,0,0,0.2);
+            border-radius: 15px;
+            padding: 25px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: left;
+            animation: fadeIn 0.6s ease;
+        }
+
+        .city-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0px 8px 20px rgba(0,0,0,0.3);
+        }
+
+        .city-card p {
+            font-size: 18px;
+            margin: 12px 0;
+            color: #333;
+        }
+
+        .city-card span {
+            font-weight: 600;
+            color: #007bff;
+        }
+
+        .city-card sup {
+            font-size: 12px;
+            color: #555;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        
+    </style>
+</head>
+<body>
+    <h1>🌤 Weather Forecast</h1>
+
+    <form id="form" class="parent-container">
+        <input 
+            type="text"
+            placeholder="Enter city name"
+            id="city-name"/>
+        <button>Submit</button>
+    </form>
+
+    <div id="result" class="result-container"></div>
+
+    <script>
+        var form=document.getElementById("form")
+        var result=document.getElementById("result")
+        var cityName=document.getElementById("city-name")
+        var apikey="0a8e9e1f9a0215878bddeeedc1da2ef7"
+        form.addEventListener("submit",(e)=>{
+            e.preventDefault()
+            var apiurl=`https://api.openweathermap.org/data/2.5/weather?q=${cityName.value}&appid=${apikey}&units=metric` 
+            fetch(apiurl)
+                .then((res)=>{
+                    return res.json()
+                })
+                .then((res)=>{
+                    if(res.cod=="404"){
+                        alert("City not found!")
+                        return false
+                    }
+                    var weatherData={
+                        temp:res.main.temp,
+                        country:res.sys.country,
+                        name:res.name
+                    }
+                    displayResult(weatherData)
+                })
+        })
+        function displayResult(weatherData){
+            result.innerHTML=`
+                <div class="city-card">
+                    <p><span>Name</span>: ${weatherData.name}</p>
+                    <p><span>Temp</span>: ${weatherData.temp} <sup>°C</sup></p>
+                    <p><span>Country</span>: ${weatherData.country}</p>
+                </div>
+            `
+        }
+    </script>
+</body>
+</html>

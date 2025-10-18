@@ -1,32 +1,118 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Password Verification</title>
+  <style>
+   body {
+  font-family: 'Poppins', sans-serif;
+  background: url("https://img.pikbest.com/backgrounds/20241119/a-network-security-concept-with-a-digital-padlock-symbolizing-data-protection_11104460.jpg!bw700");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+    .card {
+      background: hsl(0, 0%, 100%);
+      padding: 90px;
+      border-radius: 20px;
+      box-shadow: 0 4px 20px white;
+      text-align: center;
+      width: 320px;
+    }
+    .otp-box {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin: 20px 0;
+    }
+    .otp-box input {
+      width: 40px;
+      height: 45px;
+      text-align: center;
+      font-size: 20px;
+      border: 2px solid #ddd;
+      border-radius: 10px;
+      outline: none;
+    }
+    .otp-box input:focus { border-color: #4caf50; }
+    button {
+      border: none;
+      border-radius: 8px;
+      padding: 10px 20px;
+      color: #fff;
+      cursor: pointer;
+      font-size: 15px;
+    }
+    .generate { background: #2196f3; }
+    .verify { background: #4caf50; display: none; }
+    p { font-size: 14px; color: #555; }
+    #message { font-weight: 600; margin-top: 10px; }
+  </style>
 </head>
 <body>
-    <p>Random password: <span id="show"></span></p>
-    <button onclick="generate()" >generate password</button>
-    <script>
-        function generate(){
-            var passwordList="abcdefghijklmnopqurstuwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890@#$&",
-            password=[]
-            //console.log(Math.floor(Math.random()*18))
-            //console.log(passwordlist.carat(60))
-            for(i=0;i<=6;i++){
-                var randomNumber=Math.floor(Math.random()*passwordList.length)
-                //console.log(randomNumber)
-                var randomCharacter=passwordList.charAt(randomNumber)
-                password.push(randomCharacter)
-                
 
+  <div class="card">
+    <h2>Verification Code</h2>
+    <p>Enter the code shown below.</p>
 
-            }
-            password=password.join("")
-            console.log(password)
-            document.getElementById("show").innerHTML=password
-        }
-    </script>
+    <div class="otp-box">
+      <input maxlength="1"><input maxlength="1"><input maxlength="1">
+      <input maxlength="1"><input maxlength="1"><input maxlength="1"><input maxlength="1">
+    </div>
+
+    <p>Code: <span id="show"></span></p>
+
+    <button class="generate" onclick="generate()">Generate</button>
+    <button class="verify" onclick="verify()">Verify</button>
+    <p id="message"></p>
+  </div>
+
+  <script>
+    var password = "";
+
+    function generate() {
+      var passwordList = "abcdefghijklmnopqurstuwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890@#$&",
+          passwordArr = [];
+
+      for (i = 0; i <= 6; i++) {
+        var randomNumber = Math.floor(Math.random() * passwordList.length);
+        var randomCharacter = passwordList.charAt(randomNumber);
+        passwordArr.push(randomCharacter);
+      }
+
+      password = passwordArr.join("");
+      document.getElementById("show").innerText = password;
+      document.getElementById("message").innerText = "";
+      document.querySelector(".generate").style.display = "none";
+      document.querySelector(".verify").style.display = "inline-block";
+    }
+
+    function verify() {
+      var inputs = document.querySelectorAll(".otp-box input");
+      var entered = "";
+      inputs.forEach(i => entered += i.value);
+      var msg = document.getElementById("message");
+
+      if (entered === password) {
+        msg.innerText = "✅ Verified Successfully!";
+        msg.style.color = "#4caf50";
+        document.querySelector(".verify").style.display = "none";
+      } else {
+        msg.innerText = "❌ Incorrect! Click resend.";
+        msg.style.color = "#e53935";
+        document.querySelector(".generate").innerText = "Resend Code";
+        document.querySelector(".generate").style.display = "inline-block";
+        document.querySelector(".verify").style.display = "none";
+      }
+    }
+  </script>
+
 </body>
 </html>
